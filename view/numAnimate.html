@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数字动画</title>
+	<style>
+		*{
+			font-family:Helvetica, Arial, sans-serif;font-size: 40px;
+		}
+		#btn{
+			 font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<div id="num">56690.35</div>
+	<div id="num1">12345.66</div>
+	<div id="num2">2563.00</div>
+	<button id="btn">点击</button>
+	<script type="text/javascript">
+		function $(id) {
+			return document.getElementById(id)
+		}
+		var num = $('num').innerHTML;
+		var num1 = $('num1').innerHTML;
+		var num2 = $('num2').innerHTML;
+		function countUp (elem, endVal, startVal, duration, decimal) {
+			var startTime = 0;
+				var dec = Math.pow(10, decimal);
+				var progress,value;
+				function startCount(timestamp) {
+					startTime = !startTime ? timestamp : startTime;
+					progress = timestamp - startTime;
+					value = startVal + (endVal - startVal) * (progress / duration);
+					value = (value > endVal) ? endVal : value;
+					value = Math.floor(value*dec) / dec;
+					elem.innerHTML = value.toFixed(decimal);
+					progress < duration && requestAnimationFrame(startCount)
+				}
+				requestAnimationFrame(startCount)						
+		}
+		$('btn').onclick = function() {
+				countUp($('num'), num, 0, 500, 2);
+				countUp($('num1'), num1, 0, 500, 2);
+				countUp($('num2'), num2, 0, 500, 2);
+		}
+
+		var _arr =[], 
+		_obj = {
+			name : 'jinlei',
+			age  : 24,
+			sex  :1
+		}
+		_obj1 = {
+			name : 'jinlei',
+			age  : 22,
+			sex  :1
+		}
+		_arr[0] = _obj;
+		_arr[1] = _obj1;
+
+		var filterResult = _arr.filter(function(item, index, array){    
+			return item['age']>22
+		});	
+
+		console.log('filterResult',filterResult)	
+	</script>
+</body>
+</html>

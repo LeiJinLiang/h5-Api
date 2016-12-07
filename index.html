@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <title>output元素实例</title>
+</head>
+<body>
+    <form action="" id="testform">
+        <input id="range1" type=range min=0 max=100 step=5 value=100 />
+        <output id="output1">10</output>
+        <input type="text" name="text" required pattern="^\w.*$"/>
+        <input type="submit">
+        <input type="file" id="file" multiple size="80"/>
+        <button id="btn">文件上传</button>
+    </form>
+    <hr/>
+    <textarea name="" id="text" cols="30" rows="10" placeholder="请输入一些文字">
+    </textarea><br/>
+    <button id="btndownload">创建以及下载二进制文件</button>
+    <output id="result"></output>
+    <hr/>
+    <label for="">请选择一个文件</label>
+    <input type="file" id="files"/>
+    <button id="read_btn_image">读取图像</button>
+    <button id="read_btn_binary">读取二进制数据</button>
+    <button id="read_btn_text">读取文本文件</button>
+    <div id="res"></div>
+    <hr/>
+    <canvas id="canvas" width="400" height="300"></canvas>
+    <button id="img_save">上传图片</button>
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>

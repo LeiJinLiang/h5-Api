@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Array</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var values = [0,1,2,2,3,3];
+		var sum = values.reduce(function(prev, cur , index, array){
+			return prev + cur; 		
+		})
+		console.log('sum',sum)
+		var startTime = Date.now()+'';
+		console.log('startTime',startTime);
+		var a = [1, 2, 3];
+		var b = a;
+		delete b[1];
+		console.log(a)
+		console.log('---------------');
+		Object.prototype.foo = 1;
+		var obj = {};
+		obj.bar = 1;
+		for(var p in obj) {
+			console.log('对象属性',p);				
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>读取三个文件</title>
+</head>
+<body>
+    <input type="button" value="读取文件" onclick="read()"/>
+    <div id="result" name="result" style="white-space: pre"></div>
+    <script type="text/javascript">
+        function CreateXMLHTTP() {
+            if(window.ActiveXObject) {
+                var objXmlHttp = new ActiveXObject('Mircosoft.XMLHTTP');
+            }else{
+                if(window.XMLHttpRequest) {
+                    var objXmlHttp = new XMLHttpRequest();
+                }else{
+                    console.info("Can't initalize XMLHTTP object!");
+                    return null;
+                }
+            }
+            return objXmlHttp;
+        }
+        function getData(fileName) {
+            var objXmlHttp = CreateXMLHTTP();
+            objXmlHttp.open('GET',fileName,true);
+            objXmlHttp.onreadystatechange = function(){
+                console.info(state)
+            }
+        }
+        function read() {
+            getData('1.text');
+            getData('2.text');
+            getData('3.text');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <title>getUserMedia</title>
+</head>
+<body>
+    <video id="myVideo" width="400" height="100" autoplay></video>
+    <h1>使用FormData 对象向服务器长传文件</h1>
+    <form id = "form1" enctype="multipart/form-data">
+        请选择文件: <input type="file" id="file1" name="file" multiple><br/>
+        <input type="button" value="文件上传" onclick="uploadFile()">
+    </form>
+    <output id="result"></output>
+    <script type="text/javascript">
+        function hasGetUserMedia() {
+            return !!(navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia
+            )
+        }
+        if(!hasGetUserMedia()){
+            alert('您的浏览器不支持getUserMedia方法')
+        }
+        navigator.getUserMedia = navigator.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        window.navigator.mozGetUserMedia;
+        window.URL = window.URL || window.webkitURL;
+        var video = document.getElementById('myVideo')
+        navigator.getUserMedia({video:true, audio: false},function(stream){
+            video.src = window.URL.createObjectURL(stream)
+        },function(err){
+            console.info(err)
+        })
+
+        function uploadFile() {
+            var formData = new FormData()
+            var files = document.getElementById('file1').files
+            for(var i, len = files.length; i< len; i++) {
+                var file = files[i]
+                formData.append('myfile[]',file)
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST','',true);
+            xhr.onload = function(e) {
+                if(this.status == 200){
+
+                }
+            }
+            xhr.send(formData)
+        }
+    </script>
+</body>
+</html>

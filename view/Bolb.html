@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <title>Blob</title>
+</head>
+<body>
+    <h1>向server 发送Blob对象</h1>
+    <input type="button" value="复制页面文件" onclick="uploadDocument()"><br/>
+    <progress min="0" max="100" value="0" id="progress"></progress>
+    <output id="result"></output>
+    <script type="text/javascript">
+        window.URL = window.URL || window.webkitURL
+        function uploadDocument() {
+            var bb = new Blob([document.documentElement.outerHTML])
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST','../3000?fileName='+getFileName(),true)
+            var progressBar = document.getElementById('progress');
+            xhr.upload.onprogress = function(e) {
+                console.info(e)
+                if(e.lengthComputable) {
+                    progressBar.value = (e.loaded/ e.total)*100;
+                    document.getElementById('result').innerHTML =
+                            '已完成进度:'+ progressBar.value + '%';
+                }
+            }
+            xhr.send(bb)
+        }
+
+        function getFileName() {
+            var url = window.location.href;
+            var pos = url.lastIndexOf('\\');
+            if(pos == -1) {
+                pos = url.lastIndexOf('/');
+                var fileName = url.substring(pos+1);
+                return fileName
+            }
+        }
+    </script>
+</body>
+</html>
