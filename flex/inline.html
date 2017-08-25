@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p{
+            font-size: 13px;
+            transform: scale(0.5)
+        }
+        dl#runin dt {
+            display: run-in;
+            border: solid 2px red;
+        }
+        dl#compact dt{
+            display: compact;
+            border: solid 2px red;
+        }
+        dd{
+            margin-left: 100px;
+            background-color: chocolate;
+        }
+    </style>
+</head>
+<body>
+    <p>你好</p>
+    <dl id = 'runin'>
+         <dt>名词1</dt>
+         <dd>关于名词1的解释</dd>
+    </dl>
+    <dl id="compact">
+        <dt>名词2</dt>
+        <dd>关于名词2的解释</dd>
+    </dl>
+    <script>
+        function asyncFunction () {
+            return new Promise(function(resolve,reject){
+                setTimeout(function () {
+                    resolve('Async ...')
+                },16)
+            })
+        }
+
+        asyncFunction().then(function (value) {
+            console.log(value)
+        }).catch(function (error) {
+            console.log(error)
+        })
+    </script>
+</body>
+</html>

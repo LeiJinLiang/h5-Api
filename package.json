@@ -4,7 +4,7 @@
   "description": "es6 demo",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server -a 10.199.66.241 -p 8090"
   },
   "keywords": [
     "es6"
@@ -18,5 +18,13 @@
   },
   "dependencies": {
     "crypto-js": "^3.1.8"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeiJinLiang/h5-Api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LeiJinLiang/h5-Api/issues"
+  },
+  "homepage": "https://github.com/LeiJinLiang/h5-Api#readme"
 }

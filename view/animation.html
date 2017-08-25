@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation</title>
+    <style>
+        div{
+            position: absolute;
+            background-color: red;
+            top:100px;
+            width: 500px;
+        }
+        @keyframes mycolor {
+            0%{
+                background-color: red;
+                transform: rotate(0deg);
+            }
+            40%{
+                background-color: darkblue;
+                transform: rotate(30deg);
+            }
+            70%{
+                background-color: yellow;
+                transform: rotate(-30deg);
+            }
+            100%{
+                background-color: red;
+                transform: rotate(0deg);
+            }
+        }
+        div:hover{
+            animation-name: mycolor;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        section{
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border:1px solid;
+            margin: 0 auto;
+            position: relative;
+        }
+        section:before{
+            position: absolute;
+            content: '';
+            width: 10px;
+            display: block;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            margin-left: -5px;
+            margin-top:-5px;
+            z-index: 99;
+        }
+        .line1{
+            width: 500px;
+            border-bottom: 1px solid;
+            position: absolute;
+            transform: rotate(90deg);
+            top:47%;
+        }
+        .line1:before{
+            content: '12';
+            position: absolute;
+            transform: rotate(270deg);
+            top:-8px;
+        }
+        .line1:after{
+            content: '6';
+            position: absolute;
+            transform: rotate(270deg);
+            right : 10px;
+            top:-10px;
+        }
+        .line2{
+            width: 500px;
+            border-bottom: 1px solid;
+            position: absolute;
+            transform: rotate(120deg);
+            top:47%;
+        }
+        .line3{
+            width: 500px;
+            border-bottom: 1px solid;
+            position: absolute;
+            transform: rotate(150deg);
+            top:47%;
+        }
+        .line4{
+            width: 500px;
+            border-bottom: 1px solid;
+            position: absolute;
+            transform: rotate(180deg);
+            top:47%;
+        }
+        .line4:before{
+            content: '3';
+            position: absolute;
+            transform: rotate(-90deg);
+            top:-10px;
+            left: 3px;
+        }
+        .line4:after{
+            content: '9';
+            position: absolute;
+            right: 10px;
+            transform: rotate(90deg);
+        }
+        .line5{
+            width: 500px;
+            border-bottom: 1px solid;
+            position: absolute;
+            transform: rotate(210deg);
+            top:47%;
+        }
+        .line6{
+            width: 500px;
+            border-bottom: 1px solid;
+            position: absolute;
+            transform: rotate(240deg);
+            top:47%;
+        }
+        .circle{
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            position: absolute;
+            left: 23px;
+            top:10px;
+            background-color: #fff;
+            z-index: 2;
+        }
+        #seconds{
+            width: 300px;
+            border-bottom: 1px solid;
+            position: absolute;
+            top:50%;
+            z-index: 99;
+            margin-top: -2px;
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadein {
+             0%{
+                  opacity: 0;
+                  background-color: white;
+             }
+            100%{
+                  opacity: 1;
+                  background-color: white;
+            }
+        }
+        body{
+            animation-name: fadein;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-iteration-count: 1;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <dl class="line1"></dl>
+        <dl class="line2"></dl>
+        <dl class="line3"></dl>
+        <dl class="line4"></dl>
+        <dl class="line5"></dl>
+        <dl class="line6"></dl>
+        <dl class="circle"></dl>
+        <dl id="seconds"></dl>
+    </section>
+    <input type="button" onclick="go()" value="go">
+    <script>
+        function go(){
+            var ele = document.getElementById('seconds'), angle = 190;
+            console.log(ele)
+            ele.style.transform = "rotate"+angle+"deg)";
+        }
+    </script>
+</body>
+</html>

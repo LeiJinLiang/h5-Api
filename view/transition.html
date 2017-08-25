@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .demo {
+            background-color: #ffff00;
+            width: 300px;
+            color: #000;
+            transition: background-color 1s linear, color 1s linear, width 1s linear;
+        }
+        .demo:hover {
+            background-color: #003366;
+            color: #fff;
+            width: 400px;
+        }
+        img {
+            position: absolute;
+            top : 70px;
+            left: 0;
+            transform: rotate(0deg);
+            transition: left 1s linear, transform 1s linear;
+        }
+        .demo2:hover img{
+            position: absolute;
+            left: 30px;
+            transform: rotate(720deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo">示例文字</div>
+    <div class="demo2">
+        <img src="http://tva4.sinaimg.cn/crop.150.0.337.337.50/006yhl72jw8f77codeji5j30go09dgme.jpg" />
+    </div>
+</body>
+</html>

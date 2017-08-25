@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .container{
+
+            position: relative;
+            border: 1px solid;
+        }
+        .center{
+            position: absolute;
+            right: 50%;
+            bottom:50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+    <p>
+        <label>选择文件:</label>
+        <input type="file"  id="file" onchange="file_change()"/>
+        <button onclick="read()"  id="read">读取图像</button>
+    </p>
+    <div id="result" name="result">
+
+    </div>
+
+    <div class="container">
+        <div class="center">center</div>
+    </div>
+    <script type="text/javascript">
+        var result = document.getElementById('result');
+        var file = document.getElementById('file');
+        if(typeof FileReader == undefined){
+            result.innerHTML = '<p>浏览器不支持 FileReader</p>';
+            file.setAttribute('disabled','disabled');
+        }
+        function file_change() {
+            document.getElementById('read').isDisabled = false
+        }
+        function read() {
+            var file = document.getElementById('file').files[0];
+            if(!/image\/\w+/.test(file.type)) {
+                alert('文件类型错误');
+                return false
+            }
+            var reader = new FileReader();
+            reader.readAsBinaryString(file);
+            reader.onload = function () {
+                var result = document.getElementById('result');
+                console.log(this)
+                var src = "data:"+file.type + ";base64,"+window.btoa(this.result);
+                result.innerHTML = '<img src="'+src+'" alt="">'
+            }
+        }
+    </script>
+</body>
+</html>

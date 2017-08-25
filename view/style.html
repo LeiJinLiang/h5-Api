@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: #DDD;
+        }
+        .content {
+            width: 500px;         /* 1 */
+            float: left;
+            position: relative;   /* 2 */
+            left: 50%;            /* 3 */
+            margin-left: -250px;  /* 4 */
+            background-color: purple;
+        }
+        #parent{
+            width: 200px;
+            height: 200px;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        aaaaaa aaaaaa a a a a a a a a
+    </div>
+    <div id='parent'>父亲
+        <div id='child'>孩子</div>
+    </div>
+    <img src="http://img.alicdn.com/tfs/TB1KBJsOpXXXXaeXFXXXXXXXXXX-900-500.jpg" />
+    <script>
+        function createStore() {
+           var result = []
+           for( var i = 0 ; i< 10; i++) {
+              result[i] = function () {
+                  return i
+              }
+           }
+
+           return result
+        }
+        console.log(createStore())
+        function count() {
+            var num = 1
+            return function () {
+                num++
+                return num
+            }
+        }
+        var t = count()
+        
+
+        document.getElementById('child').addEventListener('click',function (e) {
+            alert('child')
+        },true)
+
+        //冒泡 内到外
+        document.getElementById('parent').addEventListener('click',function (e) {
+            alert('parent 冒')
+        },false)
+
+        // 捕获 从外到内
+        document.getElementById('parent').addEventListener('click',function (e) {
+            alert('parent 捕')
+        },true) // 捕获 从外到内
+
+        function handleResponse(response) {
+            alert("You’re at IP address " + response.ip + ", which is in " + response.city + ", " + response.region_name);
+        }
+
+
+        var script = document.createElement('script');
+        script.src = 'http://freegeoip.net/json/?callback=handleResponse';
+        document.body.insertBefore(script,document.body.firstChild)
+    </script>
+</body>
+</html>

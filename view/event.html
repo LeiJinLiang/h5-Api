@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .progress{
+            height: 2px;
+            background-color: orangered;
+            position: fixed;
+            top:0;
+            animation-name: progress-bar-stripes;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        @keyframes progress-bar-stripes {
+            0% {
+                width: 0%;
+            }
+            100%{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <div id="child">Child</div>
+    </div>
+    <div class="progress">
+        <!--<div class="progress-inner" id="progress"></div>-->
+    </div>
+    <script>
+        var _done = false
+        var parent = document.getElementById('parent'), child = document.getElementById('child');
+        parent.addEventListener('click', function () {
+            alert('parent event')
+        },false)
+        child.addEventListener('click', function (e) {
+//            e.stopPropagation();
+            alert('child event')
+        },true)
+
+        window.addEventListener('popstate', function () {
+            console.log('reset')
+        },false)
+
+        var _setTimer = function(start) {
+            if(!start){
+                start = 0
+            }
+            var ele = document.getElementsByClassName('progress')[0];
+            var setIntervalID = setInterval(function(){
+                start = start + Math.floor(Math.random()*10+1);
+                if(start >= 100) {
+                    ele.remove()
+                    clearInterval(setIntervalID)
+                }
+            },100)
+        }
+        _setTimer()
+        window.onload = function () {
+            console.log('....')
+        }
+    </script>
+</body>
+</html>
