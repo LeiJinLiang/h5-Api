@@ -25,6 +25,9 @@
 <body>
     <div class="content">
         aaaaaa aaaaaa a a a a a a a a
+        <label for="Name">Number:</label>
+        <input type=“text“name="Name" id="Name"/>
+        <label>Date:<input type="text" name="B"/></label>
     </div>
     <div id='parent'>父亲
         <div id='child'>孩子</div>
@@ -67,13 +70,29 @@
         },true) // 捕获 从外到内
 
         function handleResponse(response) {
-            alert("You’re at IP address " + response.ip + ", which is in " + response.city + ", " + response.region_name);
+            console.log("You’re at IP address " + response.ip + ", which is in " + response.city + ", " + response.region_name);
         }
-
-
         var script = document.createElement('script');
         script.src = 'http://freegeoip.net/json/?callback=handleResponse';
         document.body.insertBefore(script,document.body.firstChild)
+
+                    // 1,0
+        function fun(n,o) {
+            console.log(o) // 0
+            return {
+                fun : function (m) {
+                    return fun(m,n)
+                }
+            }
+        }
+
+
+       // fun(0) ==> o = undefined 返回  { fun : function(m){ return fun(m,n)}}
+      // fun(0)fun(1) ==> o = undefined fun : function( m = 1) { return fun(1, 0)} ==> o = 0  返回 { fun : function(m){ return fun(m,1)}}
+      // fun(0)fun(1)fun(2) ==>   fun(2,1) ==> o = 1 n = 2
+      // fun(0)fun(1)fun(2)fun(3) ==> fun(3,2) ==> o = 2
+
+
     </script>
 </body>
 </html>
