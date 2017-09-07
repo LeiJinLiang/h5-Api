@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            /*vertical-align:baseline;*/
+            vertical-align: text-top;
+            font-size:20px;
+            /*line-height:60px;*/
+            background-color:yellow;
+            display: none;
+        }
+        span {background-color: red;}
+        u {background-color: blue;}
+        del {background-color: pink;}
+        #root{
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<p>
+    <span>Ajax测试</span>
+    <u>Ajax测试</u>
+    <del>Ajax测试</del>
+    Ajax测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+</p>
+<div id="root"></div>
+<script type="text/javascript">
+    Object.prototype.clone = function(){
+        var o = this.constructor === Array ? [] : {};
+        for(var e in this){
+            console.log('e',e)
+            o[e] = typeof this[e] === "object" ? this[e].clone() : this[e];
+        }
+        return o;
+    }
+    var obj = 2
+    var obj1 = Object.prototype.clone.call(obj);
+    console.log('obj1',obj1)
+
+    function factorial(num) {
+       if(num <= 1) {
+            return 1
+       }else{
+            return num*factorial(num-1)
+       }
+    }
+    console.log('factorial',factorial(5))
+    function merge(num1,m, num2, n) {
+        var _num = num1.concat(num2)
+        _num =   _num.filter(function (item, index, arr) {
+            return _num.indexOf(item) === index
+        })
+        _num =  _num.sort(function (a,b) {
+            return a - b
+        })
+        console.log('_num',_num)
+    }
+    merge([1],1,[],0)
+    function Person(name , age, job) {
+        if(this instanceof Person) {
+           this.name = name;
+           this.age = age;
+           this.job = job;
+        }else{
+            return new Person(name,age,job)
+        }
+    }
+
+    var person1 = Person('Nicholas', 29, 'Software Engineer.')
+    Object.seal(person1);
+    person1.money = '1billion'
+    console.log('person1',person1)
+    console.log('Object.isExtensible',Object.isExtensible(person1))
+
+    function chunk (arrary , process, context) {
+        setTimeout(function () {
+            var item = arrary.shift();
+            process.call( context, item);
+            if(arrary.length > 0) {
+              setTimeout(arguments.callee, 100)
+            }
+        },100)
+    }
+
+    var data = [12, 123, 1234, 453, 436, 23, 23, 5, 4123, 453, 436, 23, 23, 5, 4123,
+    12, 123, 1234, 453, 436, 23, 23, 5, 4123, 453, 436, 23, 23, 5, 4123]
+    function printValue (item) {
+        var div = document.getElementById('root');
+        div.innerHTML += item +'<br/>';
+    }
+    chunk(data, printValue)
+    
+    
+    function throttle(method, context) {
+        clearTimeout(method.tId);
+        method.tId = setTimeout(function () {
+            method.call(context)
+        }, 100)
+    }
+    
+    function resizeDiv() {
+        var div = document.getElementById('root');
+        div.style.height = div.offsetWidth + 'px';
+    }
+    window.onresize = function () {
+        throttle(resizeDiv)
+    }
+    var _bankAccount = '6228480402564890018';
+
+    var serializeCopy = serializeCount(_bankAccount,4)
+    var bankAcc = serializeCopy()
+    console.log('bankAcc',bankAcc)
+
+    function addSpace(arr) {
+    return arr.map(function (item,idx) {
+         var temp;
+         if(idx < arr.length-1){
+             temp = item + '\u0009';
+         }else{
+             temp = item
+         }
+         return temp;
+      })
+    }
+    //序列化银行卡号 字符串分割
+    function serializeCount(str, gap) {
+        if(Object.prototype.toString.call(str) === '[object String]'){
+            var begin = 0;
+            var arr = [];
+            return function() {
+                arr.push(str.slice(begin, begin + gap))
+                begin += gap;
+                if(str.slice(begin, begin + gap) !=''){
+                    arguments.callee()
+                }
+                return arr
+            }
+        }
+    }
+</script>
+</body>
+</html>

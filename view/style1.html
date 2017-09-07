@@ -22,8 +22,6 @@
     </div>
     <script>
         console.log(["1", "2", "3"].map(parseInt))
-
-
         function normalize(arr) {
             if (arr && Array.isArray(arr)) {
                 var i, len, map = {};
@@ -136,14 +134,53 @@
          * slice(begin, end)
          * **/
         var sliceArrary = ['one', 'two', 'three', 'four']
-        console.log('slice',sliceArrary.slice(1,3))
+        console.log('slice',sliceArrary.slice(0,3))
         console.log('slice',sliceArrary)
         
         function list() {
             return Array.prototype.slice.call(arguments)
         }
         console.log(list(1,2,3))
-        
+
+        var reduceArrary = ['prev', 'cur', 'next']
+        reduceArrary.reduceRight(function (prev,cur,next, arr) {
+                console.log('prev',prev)
+                console.log('cur',cur)
+                console.log('next',next)
+                console.log('arr',arr)
+        })
+
+        // -----**-----
+        var values = [0,1,2,3,4,5]
+        console.log('Max-value',Math.max.apply(Math,values))
+        console.log('Min-value',Math.min.apply(Math,values))
+
+        // Math.ceil(number) 向上取整
+        // Math.floor(number) 向下取整
+        // Math.round(number) 四舍五入
+        // Math.random() 返回0，1 之间的数字，不包含0,1
+        // array filter
+        var filerTest = ['a', 'abc', '', [], ['a1','a1bc','b1c'],[['a2b2','b2,c2']]]
+
+        function filterCode (array , code , res) {
+          array.map(function(item) {
+            if(Object.prototype.toString.call(item) === '[object String]' && item.includes(code)){
+               res.push(item)
+            }else if(Object.prototype.toString.call(item) === '[object Array]') {
+               filterCode(item,code, res)
+            }
+          })
+          return res
+        }
+
+        var result = []
+        filterCode(filerTest, 'a', result)
+        console.log('result',result)
+
+
+//        ---------
+
+
     </script>
 </body>
 </html>
