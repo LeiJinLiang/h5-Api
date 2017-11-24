@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		body {
+			/* essential styling */
+			background: linear-gradient(90deg,
+			#ff9800 var(--stop, 0%), #3c3c3c 0);
+			background-size: 5em;
+
+		&:after { /* just to prettify stuff  */
+
+			 /* use absolute positioning because
+              * margin: 0 on body
+              * breaks Edge for some reason */
+			 position: absolute;
+			 top: 0; right: 0; bottom: 0; left: 0;
+			 font: calc(16vmin + 3rem)/ 100vh Leckerli One,
+			 cursive;
+			 text-align: center;
+			 cursor: pointer;
+			 content: 'Click!';
+
+		@supports (mix-blend-mode: screen) {
+			/* in supports because
+             * background: inherit
+             * breaks Edge for some reason
+             * (sorry, I had no better idea) */
+
+			background: inherit;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			filter: invert(1) grayscale(1) contrast(3)
+		}
+		}
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+//		function  testCoverage() {
+//	       if(0 === 1) {
+//		     console.log('------useless-----')
+//		   }
+//		   if(1 === 1) {
+//		     console.log('run -- ing')
+//		   }
+//        }
+
+const NF = 50;
+
+let rID = null, f = 0, dir = -1;
+
+function stopAni() {
+    cancelAnimationFrame(rID);
+    rID = null;
+};
+
+function update() {
+    f += dir;
+
+    let k = f/NF;
+
+    document.body.style.setProperty(
+        '--stop',
+        `${+(k*100).toFixed(2)}%`
+    );
+
+    if(!(f%NF)) {
+        stopAni();
+        return;
+    }
+
+    rID = requestAnimationFrame(update)
+};
+
+addEventListener('click', e => {
+    if(rID) stopAni();
+    dir *= -1;
+    update();
+}, false);
+
+	</script>
+</body>
+</html>

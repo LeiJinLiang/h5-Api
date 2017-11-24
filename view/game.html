@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #g-canvas{
+            width: 400px;
+            height: 300px;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="g-canvas"></canvas>
+<script>
+    var log = console.log.bind(console);
+    var imageFromPath = function (path) {
+        var img = new Image()
+        img.src = path
+        return img
+    }
+
+    var Panddle = function () {
+        var image = imageFromPath('../image/bullet.png')
+        var o = {
+            image : image,
+            x : 100,
+            y : 100,
+            speed : 5,
+        }
+        o.moveLeft = function () {
+            o.x -= o.speed
+        }
+        o.moveRight = function () {
+            o.x += o.speed
+        }
+
+        return o
+    }
+
+    var GuaGame = function() {
+        var g = {
+            actions : {},
+            keydowns : {}
+        }
+        var canvas = document.querySelector('#g-canvas')
+        var context = canvas.getContext('2d')
+    }
+
+    var __main = function () {
+        var canvas = document.querySelector('#g-canvas')
+        var context = canvas.getContext('2d')
+        var img = new Image()
+        img.src = '../image/bullet.png'
+        var x = 100
+        var y = 100
+        var leftDown = false
+        var rightDown = false
+        img.onload = function () {
+            context.drawImage(img, x, y);
+        }
+        window.addEventListener('keydown',function(){
+            if(event.key === 'a'){
+                leftDown = true
+            }else if(event.key === 'd'){
+                rightDown = true
+            }
+        })
+        window.addEventListener('keyup',function(){
+            if(event.key === 'a'){
+                leftDown = false
+            }else if(event.key === 'd'){
+                rightDown = false
+            }
+        })
+
+        setInterval(function(){
+            if(leftDown){
+                x -= 5
+            }else if(rightDown){
+                x += 5
+            }
+            context.clearRect(0,0,canvas.width, canvas.height)
+            context.drawImage(img, x, y);
+        },1000/30)
+    }
+    __main()
+
+    function LateBloomer() {
+        this.petalCount = Math.floor(Math.random()*12) + 1
+    }
+    LateBloomer.prototype.bloom = function () {
+        window.setTimeout(this.declare.bind(this), 1000)
+    }
+    LateBloomer.prototype.declare = function() {
+         console.log(this.petalCount + 'petals')
+    }
+    var flower = new LateBloomer()
+    flower.bloom()
+    
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    Point.prototype.toString = function () {
+        return this.x + ',' +this.y
+    }
+
+    var p = new Point(1,2)
+    p.toString()
+
+</script>
+</body>
+</html>

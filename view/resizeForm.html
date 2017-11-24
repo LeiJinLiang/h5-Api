@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        var _resizeForm = {
+            registerEle : function(ele, obj) {
+                if(Object.prototype.toString.call(ele) === '[object HTMLDivElement]'){
+                    this.appendForm(ele,obj)
+                }
+            },
+            chunk : function(arr, row){
+                var result = []
+                for(var i=0,len=arr.length;i<len;i+=row){
+                    result.push(arr.slice(i,i+row));
+                }
+                return result
+            },
+            appendForm : function (root, obj) {
+                var ele = document.createElement('table');
+                var rows = [], column = [];
+                for(var i = 0; i< obj.row; i++) {
+                    rows.push({ el : document.createElement('tr')});
+                    for(var j = 0; j < obj.column; j++){
+                        var tt = document.createElement('td');
+                        tt.style.border = '1px solid'
+                        tt.style.textAlign = 'center'
+                        tt.style.height = '30px'
+                        column.push({ el : tt});
+                    }
+                }
+                var res = this.chunk(column,obj.column)
+                res.map(function (item,idx) {
+                    for(var i = 0; i<obj.column; i++){
+                        rows[idx].el.appendChild(item[i].el)
+                    }
+                })
+                
+                rows.map((function (item,idx) {
+                    ele.appendChild(item.el)
+                }))
+                ele.style.border = '1px solid';
+                ele.style.borderCollapse = 'collapse';
+                ele.style.width = '100%';
+                root.appendChild(ele)
+
+            }
+        }
+
+        _resizeForm.registerEle(document.getElementById('root'),{row : 20，,  column : 3})
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <title>touch 事件封装</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            /*overflow: scroll;*/
+        }
+        p{
+            line-height: 22px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <p>register</p>
+    <p>register</p>
+    <p>register</p>
+    <p>register</p>
+    <script>
+         var log = console.log.bind(console)
+         var _touch = function (action) {
+             var o = {
+                 startY : 0,
+                 endY : 0
+             }
+             o.touchstartEvent = function (e) {
+                 var touch = e.targetTouches[0];
+                 o.startY = o.endY = touch.pageY;
+             }
+             o.touchmoveEvent = function (e) {
+                 var touch = e.targetTouches[0];
+                 o.endY = touch.pageY;
+             }
+             o.touchendEvent = function (e) {
+                 if (o.startY - o.endY > 50) {
+                     e.preventDefault();
+                     e.stopPropagation();
+                     log('-----')
+                     if(Object.prototype.toString.call(action) === '[object Function]'){
+                         action()
+                     }
+                 } else if(o.endY - o.startY > 50) {
+                     e.preventDefault();
+                     e.stopPropagation();
+                     log('*******')
+                 }
+             }
+             return o
+         }
+         var eleRegister = function (ele, touch) {
+             if(ele){
+                 ele.addEventListener('touchstart',touch.touchstartEvent)
+                 ele.addEventListener('touchmove',touch.touchmoveEvent)
+                 ele.addEventListener('touchend',touch.touchendEvent)
+             }
+         }
+
+         // touch event callback
+         var action = function () {
+             log('-----document.body.scrollTop-----',document.body.scrollTop)
+             log('---document.body.scrollHeight---',document.body.scrollHeight)
+//             window.scrollTo(0,-document.body.scrollTop)
+         }
+         // todo
+         var ele = document.body
+         var obj = _touch(action)
+         eleRegister(ele,obj)
+         window.addEventListener('scroll',function(){
+            action()
+         },false)
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <title>主页</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+        p{
+          background-color: #00aaff;
+          width: 50px;
+          animation-name: mymove;
+          animation-duration:5s;
+          animation-timing-function: linear;
+        }
+
+        @keyframes mymove {
+            0%{
+                transform: translate(-100px,0);
+            }
+            50%{
+                transform: translate(100px,0);
+            }
+            100%{
+                transform: translate(0,0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <p>move</p>
+    <script>
+        function  foo() {
+            console.log(this)
+        }
+        var obj = {}
+        var test = foo.apply(obj)
+        // ------
+
+        function log() {
+            var args = Array.prototype.slice.call(arguments)
+            args.unshift('(app)')
+            console.log.apply(console, args)
+        }
+        log('mms')
+    </script>
+</body>
+</html>
